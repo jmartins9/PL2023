@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 
 # Class to represent a person
 class Person:
-    def __init__(self, age, sex, blood_pressure, cholesterol, heartbeat, disease):
+    def __init__(self, age, gender, blood_pressure, cholesterol, heartbeat, disease):
         self.age = age
-        self.sex = sex
+        self.gender = gender
         self.blood_pressure = blood_pressure
         self.cholesterol = cholesterol
         self.heartbeat = heartbeat
@@ -25,15 +25,15 @@ def read_csv_file(name):
     return persons
 
 
-# Function that creates a distribution of the disease by sex
-def disease_by_sex(persons):
+# Function that creates a distribution of the disease by gender
+def disease_by_gender(persons):
     distribution = {}
     for person in persons:
         if bool(person.disease):
-            if person.sex in distribution.keys():
-                distribution[person.sex] += 1
+            if person.gender in distribution.keys():
+                distribution[person.gender] += 1
             else:
-                distribution[person.sex] = 1
+                distribution[person.gender] = 1
     return distribution
 
 
@@ -77,17 +77,17 @@ def print_distribution(distribution_type, distribution):
         print(str(key) + ": " + str(distribution[key]))
 
 
-# Function that draw's a graph of a distribution (disease by sex)
-def draw_sex_distribution(distribution):
+# Function that draw's a graph of a distribution (disease by gender)
+def draw_gender_distribution(distribution):
     fig = plt.figure()
     keys = list(distribution.keys())
     values = []
     for key in keys:
         values.append(distribution[key])
     plt.bar(keys, values)
-    plt.xlabel("Sex")
+    plt.xlabel("gender")
     plt.ylabel("Number of persons")
-    plt.title("Distribution of the disease by sex")
+    plt.title("Distribution of the disease by gender")
     plt.show()
 
 
@@ -131,10 +131,10 @@ def main():
 
     while option != 0:
         print()
-        print("1. Show the table of the distribution of the disease by sex")
+        print("1. Show the table of the distribution of the disease by gender")
         print("2. Show the table of the distribution of the disease by age groups")
         print("3. Show the table of the distribution of the disease by cholesterol levels")
-        print("4. Draw a graph of the distribution of the disease by sex")
+        print("4. Draw a graph of the distribution of the disease by gender")
         print("5. Draw a graph of the distribution of the disease by age groups")
         print("6. Draw a graph of the distribution of the disease by cholesterol levels")
         print("0. Exit")
@@ -144,7 +144,7 @@ def main():
         match option:
             case 1:
                 print()
-                print_distribution("Sex", disease_by_sex(persons))
+                print_distribution("gender", disease_by_gender(persons))
             case 2:
                 print()
                 print_distribution("Age group", disease_by_age_groups(persons))
@@ -152,7 +152,7 @@ def main():
                 print()
                 print_distribution("Cholesterol level", disease_by_cholesterol_levels(persons))
             case 4:
-                draw_sex_distribution(disease_by_sex(persons))
+                draw_gender_distribution(disease_by_gender(persons))
             case 5:
                 draw_age_distribution(disease_by_age_groups(persons))
             case 6:
@@ -161,5 +161,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
