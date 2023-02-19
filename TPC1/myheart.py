@@ -21,7 +21,8 @@ def read_csv_file(name):
     for line in lines:
         line = line[:len(line) - 1]
         fields = line.split(',')
-        persons.append(Person(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5]))
+        persons.append(Person(int(fields[0]), fields[1], int(fields[2]), int(fields[3]), int(fields[4]), bool(fields[5])))
+    file.close()
     return persons
 
 
@@ -29,7 +30,7 @@ def read_csv_file(name):
 def disease_by_gender(persons):
     distribution = {}
     for person in persons:
-        if bool(person.disease):
+        if person.disease:
             if person.gender in distribution.keys():
                 distribution[person.gender] += 1
             else:
@@ -42,28 +43,31 @@ def disease_by_age_groups(persons):
     distribution = {}
 
     for person in persons:
-        if bool(person.disease):
-            age_group = int(person.age) // 5
+        if person.disease:
+            age_group = person.age // 5
             age_group *= 5
             if age_group in distribution.keys():
                 distribution[age_group] += 1
             else:
                 distribution[age_group] = 1
-
     return distribution
 
 
 # Function that creates a distribution of the disease by cholesterol levels
 def disease_by_cholesterol_levels(persons):
+    max_cholesterol = max(map(lambda p: p.cholesterol, persons))
+    aux = 10
     distribution = {}
+
+    while aux < max_cholesterol:
+        distribution[aux] = 0
+        aux += 10
+
     for person in persons:
-        if bool(person.disease) and int(person.cholesterol) > 0:
-            cholesterol_level = int(person.cholesterol) // 10
+        if person.disease and person.cholesterol > 0:
+            cholesterol_level = person.cholesterol // 10
             cholesterol_level *= 10
-            if cholesterol_level in distribution.keys():
-                distribution[cholesterol_level] += 1
-            else:
-                distribution[cholesterol_level] = 1
+            distribution[cholesterol_level] += 1
 
     return distribution
 
@@ -85,7 +89,7 @@ def draw_gender_distribution(distribution):
     for key in keys:
         values.append(distribution[key])
     plt.bar(keys, values)
-    plt.xlabel("gender")
+    plt.xlabel("Gender")
     plt.ylabel("Number of persons")
     plt.title("Distribution of the disease by gender")
     plt.show()
