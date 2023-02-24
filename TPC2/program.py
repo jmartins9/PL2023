@@ -13,10 +13,7 @@ def main():
     var = ''
     total = 0
 
-    while True:
-        line = sys.stdin.readline()
-        if not line:
-            break
+    for line in sys.stdin:
 
         for char in line:
             char = char.upper()
