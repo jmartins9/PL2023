@@ -21,12 +21,10 @@ def main():
         year = er_years.match(line)
         names_list = er_names.findall(line)
 
-        for name in names_list:
-            if year and names_list:
+        if year:
+            for name in names_list:
                 century = calculate_century(year.group(1))
-                if century in centuries:
-                    pass
-                else:
+                if century not in centuries:
                     centuries[century] = {}
                     (centuries[century])['nomes'] = {}
                     (centuries[century])['apelidos'] = {}
