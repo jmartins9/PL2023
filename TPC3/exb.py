@@ -13,7 +13,7 @@ def main():
         lines = file.readlines()
 
     er_years = re.compile(r"\d+::(\d{4})-")
-    er_names = re.compile(r":([a-zA-Z]+)\b.*?\s([a-zA-Z]+)[:,]")
+    er_names = re.compile(r"::([A-Z][a-z]+) [a-zA-Z ]*([A-Z][a-z]+)::")
 
     centuries = {}
 
