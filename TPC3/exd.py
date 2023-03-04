@@ -1,4 +1,5 @@
 import re
+import json
 
 
 def main():
@@ -17,21 +18,7 @@ def main():
             processes.append(process)
 
     with open("processos.json", "w") as ou_file:
-        ou_file.write("{\n\t\"processos\" : [\n")
-        for i in range(len(processes)):
-            ou_file.write("\t\t{\n")
-            ou_file.write(f"\t\t\t\"pasta\" : \"{(processes[i])['pasta']}\",\n")
-            ou_file.write(f"\t\t\t\"data\" : \"{(processes[i])['data']}\",\n")
-            ou_file.write(f"\t\t\t\"nome\" : \"{(processes[i])['nome']}\",\n")
-            ou_file.write(f"\t\t\t\"pai\" : \"{(processes[i])['pai']}\",\n")
-            ou_file.write(f"\t\t\t\"mãe\" : \"{(processes[i])['mãe']}\",\n")
-            ou_file.write(f"\t\t\t\"observações\" : \"{(processes[i])['observacoes']}\"\n")
-            if i == len(processes) - 1:
-                ou_file.write("\t\t}\n")
-            else:
-                ou_file.write("\t\t},\n")
-
-        ou_file.write("\t]\n}")
+        json.dump(processes, ou_file, indent=2, ensure_ascii=False)
 
 
 if __name__ == '__main__':
