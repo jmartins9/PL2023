@@ -68,9 +68,9 @@ def numero(line):
     if not on:
         print("maq: \"Telefone não levantado.\"")
     else:
-        phone_number = line[2:][:1]
+        phone_number = line[2:]
 
-        if re.fullmatch(r"(00\d{9}|\d{9})", phone_number):
+        if not re.fullmatch(r"(00\d{9}|\d{9})", phone_number):
             print("maq: \"Número de telefone inválido.\"")
         elif phone_number.startswith("601") or phone_number.startswith("604"):
             print("maq: \"Esse número não é permitido neste telefone. Queira discar novo número!\"")
